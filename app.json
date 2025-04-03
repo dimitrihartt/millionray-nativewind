@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ui-example-nativewind",
-    "slug": "ui-example-nativewind",
+    "name": "MillionRay App",
+    "slug": "millionray-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,14 +17,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gluestack.uiexamplenativewind"
+      "bundleIdentifier": "com.millionray.realestateapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.gluestack.uiexamplenativewind"
+      "package": "com.millionray.realestateapp"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -35,7 +35,7 @@
         "projectId": "42cce9b5-9fbe-4572-92ba-fc43b2437a85"
       }
     },
-    "owner": "gluestack",
+    "owner": "dimitrihartt",
     "runtimeVersion": {
       "policy": "appVersion"
     },
