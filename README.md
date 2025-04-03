@@ -1,6 +1,7 @@
 # MillionRay Dashboard
 
 ## Technologies: gluestack-ui v2, nativewind
+### Font: https://www.myfonts.com/products/caps-fort-collins-285771
 
 ## Installation
 Ensure you have Node.js and Expo CLI installed on your machine.

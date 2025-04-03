@@ -101,7 +101,7 @@ const PersonalInfoSection = () => {
       <HStack className="justify-between">
         <HStack space="md">
           <Icon as={Settings} />
-          <Text>Account</Text>
+          <Text>Settings</Text>
         </HStack>
         <Pressable>
           <Icon as={ChevronRight} />
@@ -114,11 +114,11 @@ const PersonalInfoSection = () => {
 const HostingSection = () => {
   return (
     <VStack space="lg">
-      <Heading className="mb-1">Hosting</Heading>
+      <Heading className="mb-1">Real Estate</Heading>
       <HStack className="justify-between">
         <HStack space="md">
           <Icon as={Blinds} />
-          <Text>Host a home</Text>
+          <Text>Sell a property</Text>
         </HStack>
         <Pressable>
           <Icon as={ChevronRight} />
@@ -127,7 +127,7 @@ const HostingSection = () => {
       <HStack className="justify-between">
         <HStack space="md">
           <Icon as={Tablets} />
-          <Text>Host an experience</Text>
+          <Text>Buy a property</Text>
         </HStack>
         <Pressable>
           <Icon as={ChevronRight} />

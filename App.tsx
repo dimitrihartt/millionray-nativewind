@@ -1,6 +1,6 @@
 import "./global.css";
 import React from "react";
-import HomestayPage from "./kitchensink-components/HomestayPage";
+import HomestayPage from "./kitchensink-components/MillionRayPage";
 import { SafeAreaView, GluestackUIProvider } from "./components/ui";
 import * as Linking from "expo-linking";
 

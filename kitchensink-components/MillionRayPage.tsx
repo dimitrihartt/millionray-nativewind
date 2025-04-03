@@ -49,16 +49,17 @@ const HomestayPage = () => {
 
   return (
     <>
-      <Box className="flex-1">
-        <StatusBar />
+      <Box className="flex-1">        
+        {/* Status bar */}
+        <StatusBar />        
 
+        {/* I think header */}
         <Box className="flex-1">
           <MobileProfilePage isActive={activeTab === "Profile"} />
-
           <Explorepage setActiveTab={setActiveTab} activeTab={activeTab} />
-
           <MobileModeChangeButton />
         </Box>
+
         {/* mobile bottom tabs */}
         <Box className="h-[72px] items-center w-full flex md:hidden border-t border-outline-50">
           <MobileBottomTabs

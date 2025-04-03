@@ -2,19 +2,19 @@ import React, { useContext } from "react";
 import { Image } from "@/components/ui";
 import { ThemeContext } from "@/App";
 
-const HomestayLogo = () => {
+const MillionRayLogo = () => {
   const { colorMode } = useContext(ThemeContext);
   return (
     <Image
       source={
         colorMode === "light"
-          ? require("../../assets/light-logo.svg")
-          : require("../../assets/dark-logo.svg")
+          ? require("../../assets/millionray-logo-light-big.png")
+          : require("../../assets/millionray-logo-dark-big.png")
       }
-      alt="homestaylogo"
-      className="h-[42px] w-[142px]"
+      alt="MillionRay Logo"
+      className="h-[42px] w-[170px]"
     />
   );
 };
 
-export default HomestayLogo;
+export default MillionRayLogo;

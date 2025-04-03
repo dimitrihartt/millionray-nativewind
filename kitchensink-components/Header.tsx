@@ -9,7 +9,7 @@ import {
   SearchIcon,
 } from "../components/ui";
 import HeaderTabs from "./header/HeaderTabs";
-import HomestayLogo from "./header/HomestayLogo";
+import MillionRayLogo from "./header/MillionRayLogo";
 import ToggleMode from "./header/ToggleMode";
 import UserProfile from "./header/UserProfile";
 import { ThemeContext } from "@/App";
@@ -21,7 +21,7 @@ const Header = React.memo(() => {
       {/* big screen */}
       <Box className="px-16 w-full border-b hidden md:flex border-outline-100 min-h-20">
         <HStack className="items-center justify-between mx-auto w-full">
-          <HomestayLogo />
+          <MillionRayLogo />
           <HeaderTabs />
           <HStack space="lg" className="items-center pr-1.5">
             <ToggleMode />
