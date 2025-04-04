@@ -85,21 +85,13 @@ const sidebarFiltersAmmenities = [
   },
 ];
 const phoneNumberCodes = [
-  { code: "+1", country: "USA" },
-  { code: "+44", country: "UK" },
-  { code: "+91", country: "India" },
-  { code: "+61", country: "Australia" },
-  { code: "+33", country: "France" },
-  { code: "+49", country: "Germany" },
-  { code: "+81", country: "Japan" },
-  { code: "+86", country: "China" },
-  { code: "+7", country: "Russia" },
-  { code: "+971", country: "United Arab Emirates" },
+  { code: "+1", country: "USA" }, 
+  { code: "+55", country: "Brazil" },
 ];
 const propertyType = [
   "Flat/Apartment",
-  "Independent House / Villa",
-  "Independent Floor/Builder Floor",
+  "House/Villa",
+  "Farmhouse",  
   "Plot / Land",
 ];
 const sellOrRentOptions = ["Sell", "Rent/Lease"];
@@ -108,7 +100,7 @@ const handleClose = (setModalVisible: any) => {
   setModalVisible(false);
 };
 
-const ListYourPlaceModal = ({ modalVisible, setModalVisible }: any) => {
+const ListYourPropertyModal = ({ modalVisible, setModalVisible }: any) => {
   const { colorMode } = useContext(ThemeContext);
   const [modalFormStep, setModalFormStep] = React.useState(0);
 
@@ -167,7 +159,7 @@ const ListYourPlaceModal = ({ modalVisible, setModalVisible }: any) => {
           <ModalHeader>
             <HStack className="items-center">
               <Heading size="sm" className="font-semibold">
-                List your place
+                List your property
               </Heading>
             </HStack>
             <ModalCloseButton>
@@ -441,12 +433,12 @@ const ModalContent3 = ({ setModalVisible, toast }: any) => {
       <VStack space="sm">
         <FormControl>
           <FormControlLabel>
-            <FormControlLabelText>Contact me</FormControlLabelText>
+            <FormControlLabelText>Contact/WhatsApp</FormControlLabelText>
           </FormControlLabel>
           <HStack space="sm">
             {/* select: example */}
             <Select
-              defaultValue="+91"
+              defaultValue="+55"
               placeholder="Select code"
               className="w-24"
             >
@@ -525,4 +517,4 @@ const AmenitiesSection = () => {
   );
 };
 
-export default ListYourPlaceModal;
+export default ListYourPropertyModal;

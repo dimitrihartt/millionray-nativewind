@@ -8,7 +8,7 @@ import {
   HStack,
 } from "../../components/ui";
 import { List } from "lucide-react-native";
-import ListYourPlaceModal from "./ListYourPlaceModal";
+import ListYourPropertyModal from "./ListYourPropertyModal";
 import { ThemeContext } from "../../App";
 
 const MainContentHeader = ({ setActiveTab, activeTab }: any) => {
@@ -33,13 +33,13 @@ const MainContentHeader = ({ setActiveTab, activeTab }: any) => {
             color={colorMode === "light" ? "#404040" : "#E5E5E5"}
           />
           <ButtonText className="pl-2 text-typography-800">
-            List your place
+            List your property
           </ButtonText>
         </Button>
       </HStack>
       {modalVisible && (
-        // list your place modal
-        <ListYourPlaceModal
+        // list your property modal
+        <ListYourPropertyModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           setActiveTab={setActiveTab}

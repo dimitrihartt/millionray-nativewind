@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { HStack, Icon, Pressable, Text, VStack } from "../components/ui";
-import ListYourPlaceModal from "./main-content/ListYourPlaceModal";
+import ListYourPlaceModal from "./main-content/ListYourPropertyModal";
 import MobileSidebarActionsheet from "./MobileSidebarActionsheet";
 import { ThemeContext } from "@/App";
 

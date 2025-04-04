@@ -18,24 +18,24 @@ const HeaderTabs = () => {
         </Pressable>
         <Pressable
           className={`rounded-full px-3 py-1.5 ${
-            selectedTab === "Anyweek" ? "bg-background-100" : "bg-transparent"
+            selectedTab === "Anyprice" ? "bg-background-100" : "bg-transparent"
           }`}
-          onPress={() => setSelectedTab("Anyweek")}
+          onPress={() => setSelectedTab("Anyprice")}
         >
           <Text size="sm" className="font-medium">
-            Anyweek
+            Anyprice
           </Text>
         </Pressable>
         <Pressable
           className={`rounded-full px-3 py-1.5 ${
-            selectedTab === "Add guests"
+            selectedTab === "Number of rooms"
               ? "bg-background-100"
               : "bg-transparent"
           }`}
-          onPress={() => setSelectedTab("Add guests")}
+          onPress={() => setSelectedTab("Number of rooms")}
         >
           <Text size="sm" className="font-medium">
-            Add guests
+            Number of rooms
           </Text>
         </Pressable>
         <Pressable className="ml-3 p-2 bg-primary-500 rounded-full">

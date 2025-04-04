@@ -24,20 +24,20 @@ const PriceRangeSection = () => {
 
   const sidebarFiltersPriceRange = [
     {
-      label: "below ₹2001",
-      value: "below ₹2001",
+      label: "below R$ 100000",
+      value: "below R$ 100000",
     },
     {
-      label: "₹2001 - ₹3000",
-      value: "₹2001 - ₹3000",
+      label: "R$100000 - R$250000",
+      value: "R$100000 - R$250000",
     },
     {
-      label: "₹3001 - ₹4001",
-      value: "₹3001 - ₹4001",
+      label: "R$250000 - R$500000",
+      value: "R$250000 - R$500000",
     },
     {
-      label: "above ₹3001",
-      value: "above ₹3001",
+      label: "Above R$500000",
+      value: "Above R$500000",
     },
   ];
 
@@ -45,8 +45,8 @@ const PriceRangeSection = () => {
     <VStack space="md">
       <Heading size="sm">Price Range</Heading>
       <Slider
-        minValue={800}
-        maxValue={5000}
+        minValue={100000}
+        maxValue={5000000}
         w="100%"
         size="sm"
         value={sliderValue}

@@ -13,25 +13,19 @@ import LogoutAlertDialog from "../LogoutAlertDialog";
 
 const userMenuItems = [
   {
-    title: "Messages",
-  },
-  {
     title: "Notifications",
   },
   {
-    title: "Trips",
-  },
+    title: "Messages",
+  },  
   {
     title: "Wishlists",
   },
   {
     title: "Post your home",
-  },
+  },  
   {
-    title: "Host an experience",
-  },
-  {
-    title: "Accounts",
+    title: "Account settings",
   },
   {
     title: "Help",

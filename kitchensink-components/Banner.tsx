@@ -8,11 +8,11 @@ const Banner = () => {
       space="sm"
     >
       <Text className="text-content-0" size="sm">
-        Show total prices up front
+        Before you start, check out our
       </Text>
       <Link href="https://ui.gluestack.io">
         <LinkText className="text-content-50 font-semibold" size="sm">
-          Learn more
+          Terms of Service
         </LinkText>
       </Link>
     </HStack>
