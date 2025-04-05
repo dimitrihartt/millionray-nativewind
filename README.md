@@ -2,6 +2,7 @@
 
 ## Technologies: gluestack-ui v2, nativewind
 ### Font: https://www.myfonts.com/products/caps-fort-collins-285771
+### Images by unsplash: https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60
 
 ## Installation
 Ensure you have Node.js and Expo CLI installed on your machine.
