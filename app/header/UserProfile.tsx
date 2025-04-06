@@ -10,7 +10,7 @@ import {
 	MenuItemLabel,
 } from "@/components/ui";
 
-import SignInModal from "../main-content/SignInModal";
+import SignUpModal from "../main-content/SignUpModal";
 import LogInModal from "../main-content/LogInModal";
 import LogOutAlertDialog from "../LogOutAlertDialog";
 
@@ -43,7 +43,7 @@ const userMenuLoggedOutItems = [
 		title: "Log in",
 	},
 	{
-		title: "Sign in",
+		title: "Sign up",
 	},
 ];
 
@@ -52,7 +52,7 @@ const UserProfile = () => {
 
 	const [openLogOutAlertDialog, setOpenLogOutAlertDialog] = useState(false);
 	const [logInModalVisible, setLogInModalVisible] = React.useState(false);
-	const [signInModalVisible, setSignInModalVisible] = React.useState(false);
+	const [signUpModalVisible, setSignUpModalVisible] = React.useState(false);
 
 	return (
 		<>
@@ -62,9 +62,9 @@ const UserProfile = () => {
 				selectionMode="single"
 				// @ts-ignore
 				onSelectionChange={(e: any) => {
-					if (e.currentKey === "Sign in") {
-						// Show sign in modal
-						setSignInModalVisible(true);
+					if (e.currentKey === "Sign up") {
+						// Show sign up modal
+						setSignUpModalVisible(true);
 					}
 					if (e.currentKey === "Log in") {
 						// Show log in modal
@@ -113,11 +113,11 @@ const UserProfile = () => {
 				/>
 			)}
 
-			{signInModalVisible && (
-				// Show sign in modal
-				<SignInModal
-					modalVisible={signInModalVisible}
-					setModalVisible={setSignInModalVisible}
+			{signUpModalVisible && (
+				// Show sign up modal
+				<SignUpModal
+					modalVisible={signUpModalVisible}
+					setModalVisible={setSignUpModalVisible}
 				/>
 			)}
 

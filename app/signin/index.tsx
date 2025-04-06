@@ -282,7 +282,7 @@ const LoginWithLeftBackground = () => {
   );
 };
 
-export const SignIn = () => {
+export const SignUp = () => {
   return (
     <AuthLayout>
       <LoginWithLeftBackground />

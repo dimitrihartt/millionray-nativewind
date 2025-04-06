@@ -54,6 +54,8 @@ import {
 } from "@/components/ui";
 import { ThemeContext } from "../App";
 
+const sellOrRentOptions = ["Sell", "Rent/Lease"];
+
 const sidebarFiltersAmmenities = [
   {
     label: "Wifi",
@@ -84,17 +86,57 @@ const sidebarFiltersAmmenities = [
     value: "hair-dryer",
   },
 ];
-const phoneNumberCodes = [
-  { code: "+1", country: "USA" }, 
-  { code: "+55", country: "Brazil" },
-];
+
 const propertyType = [
   "Flat/Apartment",
   "House/Villa",
   "Farmhouse",  
   "Plot / Land",
 ];
-const sellOrRentOptions = ["Sell", "Rent/Lease"];
+
+const phoneNumberCodes = [
+  { code: "+1", country: "USA" }, 
+  { code: "+55", country: "Brazil" },
+];
+
+const AmenitiesSection = () => {
+  const { colorMode } = useContext(ThemeContext);
+  const [values, setValues] = React.useState(["wifi", "air-conditioning"]);
+  return (
+    <VStack space="sm">
+      <FormControl>
+        <FormControlLabel>
+          <FormControlLabelText>Ammenities</FormControlLabelText>
+        </FormControlLabel>
+        <CheckboxGroup
+          value={values}
+          onChange={setValues}
+          accessibilityLabel="ammenities"
+          className="ml-1"
+        >
+          {sidebarFiltersAmmenities.map((ammenity: any) => {
+            return (
+              <Checkbox
+                value={ammenity.value}
+                className="my-2 justify-start"
+                key={ammenity.value}
+                accessibilityLabel={ammenity.value}
+              >
+                <CheckboxIndicator>
+                  <CheckboxIcon
+                    as={CheckIcon}
+                    color={colorMode === "light" ? "#FEFEFF" : "#171717"}
+                  />
+                </CheckboxIndicator>
+                <CheckboxLabel>{ammenity.label}</CheckboxLabel>
+              </Checkbox>
+            );
+          })}
+        </CheckboxGroup>
+      </FormControl>
+    </VStack>
+  );
+};
 
 const handleClose = (setModalVisible: any) => {
   setModalVisible(false);
@@ -102,15 +144,15 @@ const handleClose = (setModalVisible: any) => {
 
 const ListYourPropertyModal = ({ modalVisible, setModalVisible }: any) => {
   const { colorMode } = useContext(ThemeContext);
+  const toast = useToast();
+  
   const [modalFormStep, setModalFormStep] = React.useState(0);
-
   useEffect(() => {
     if (modalVisible === true) {
       setModalFormStep(0);
     }
   }, [modalVisible]);
 
-  const toast = useToast();
   const getModalStepContent = (step: number) => {
     switch (step) {
       case 0:
@@ -474,45 +516,6 @@ const ModalContent3 = ({ setModalVisible, toast }: any) => {
           <SaveForLaterButton setModalVisible={setModalVisible} toast={toast} />
         </VStack>
       </VStack>
-    </VStack>
-  );
-};
-
-const AmenitiesSection = () => {
-  const { colorMode } = useContext(ThemeContext);
-  const [values, setValues] = React.useState(["wifi", "air-conditioning"]);
-  return (
-    <VStack space="sm">
-      <FormControl>
-        <FormControlLabel>
-          <FormControlLabelText>Ammenities</FormControlLabelText>
-        </FormControlLabel>
-        <CheckboxGroup
-          value={values}
-          onChange={setValues}
-          accessibilityLabel="ammenities"
-          className="ml-1"
-        >
-          {sidebarFiltersAmmenities.map((ammenity: any) => {
-            return (
-              <Checkbox
-                value={ammenity.value}
-                className="my-2 justify-start"
-                key={ammenity.value}
-                accessibilityLabel={ammenity.value}
-              >
-                <CheckboxIndicator>
-                  <CheckboxIcon
-                    as={CheckIcon}
-                    color={colorMode === "light" ? "#FEFEFF" : "#171717"}
-                  />
-                </CheckboxIndicator>
-                <CheckboxLabel>{ammenity.label}</CheckboxLabel>
-              </Checkbox>
-            );
-          })}
-        </CheckboxGroup>
-      </FormControl>
     </VStack>
   );
 };
