@@ -10,10 +10,11 @@ import {
 import { List } from "lucide-react-native";
 import ListYourPropertyModal from "./ListYourPropertyModal";
 import { ThemeContext } from "../App";
+import LogInModal from "./LogInModal";
 
 const MainContentHeader = ({ setActiveTab, activeTab }: any) => {
-  const [modalVisible, setModalVisible] = React.useState(false);
   const { colorMode } = useContext(ThemeContext);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
     <Box className="pt-6 pb-2.5 px-4 md:px-0">
@@ -36,7 +37,7 @@ const MainContentHeader = ({ setActiveTab, activeTab }: any) => {
             List your property
           </ButtonText>
         </Button>
-      </HStack>
+      </HStack>      
       {modalVisible && (
         // list your property modal
         <ListYourPropertyModal
@@ -44,8 +45,8 @@ const MainContentHeader = ({ setActiveTab, activeTab }: any) => {
           setModalVisible={setModalVisible}
           setActiveTab={setActiveTab}
           activeTab={activeTab}
-        />
-      )}
+        />        
+      )}           
     </Box>
   );
 };

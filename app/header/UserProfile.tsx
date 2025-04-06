@@ -10,6 +10,8 @@ import {
 	MenuItemLabel,
 } from "@/components/ui";
 import LogOutAlertDialog from "../LogOutAlertDialog";
+import SignInModal from "../main-content/SignInModal";
+import LogInModal from "../main-content/LogInModal";
 
 const userMenuLoggedInItems = [
 	{
@@ -46,6 +48,10 @@ const userMenuLoggedOutItems = [
 
 const UserProfile = () => {
 	const [openLogOutAlertDialog, setOpenLogOutAlertDialog] = useState(false);
+	const [logInModalVisible, setLogInModalVisible] = React.useState(false);	
+	
+	const [signInModalVisible, setSignInModalVisible] = React.useState(false);
+
 	return (
 		<>
 			<Menu
@@ -54,11 +60,13 @@ const UserProfile = () => {
 				selectionMode="single"
 				// @ts-ignore
 				onSelectionChange={(e: any) => {
-					if (e.currentKey === "Sign in") {
-						// Navigate to sign in screen
+					if (e.currentKey === "Sign in") {						
+						// Show sign in modal
+						setSignInModalVisible(true);			
 					}
 					if (e.currentKey === "Log in") {
-						// Navigate to login screen
+						// Show log in modal						
+						setLogInModalVisible(true);						
 					}
 					if (e.currentKey === "Log out") {
 						setOpenLogOutAlertDialog(true);
@@ -91,7 +99,21 @@ const UserProfile = () => {
 								<MenuItemLabel>{item.title}</MenuItemLabel>
 							</MenuItem>
 					  ))}
-			</Menu>			
+			</Menu>
+			{logInModalVisible && (
+				// list your property modal				
+				<LogInModal
+					modalVisible={logInModalVisible}
+					setModalVisible={setLogInModalVisible}					
+				/>
+			)}
+			{signInModalVisible && (
+				// list your property modal
+				<SignInModal
+					signInModalVisible={signInModalVisible}
+					setSignInModalVisible={setSignInModalVisible}			
+				/>
+			)}
 			<LogOutAlertDialog
 				openLogoutAlertDialog={openLogOutAlertDialog}
 				setOpenLogoutAlertDialog={setOpenLogOutAlertDialog}
