@@ -9,9 +9,10 @@ import {
 	MenuItem,
 	MenuItemLabel,
 } from "@/components/ui";
-import LogOutAlertDialog from "../LogOutAlertDialog";
+
 import SignInModal from "../main-content/SignInModal";
 import LogInModal from "../main-content/LogInModal";
+import LogOutAlertDialog from "../LogOutAlertDialog";
 
 const userMenuLoggedInItems = [
 	{
@@ -47,9 +48,10 @@ const userMenuLoggedOutItems = [
 ];
 
 const UserProfile = () => {
+	const [loggedIn, setLoggedIn] = useState(false); // Change this to true or false based on your authentication logic
+
 	const [openLogOutAlertDialog, setOpenLogOutAlertDialog] = useState(false);
-	const [logInModalVisible, setLogInModalVisible] = React.useState(false);	
-	
+	const [logInModalVisible, setLogInModalVisible] = React.useState(false);
 	const [signInModalVisible, setSignInModalVisible] = React.useState(false);
 
 	return (
@@ -60,16 +62,18 @@ const UserProfile = () => {
 				selectionMode="single"
 				// @ts-ignore
 				onSelectionChange={(e: any) => {
-					if (e.currentKey === "Sign in") {						
+					if (e.currentKey === "Sign in") {
 						// Show sign in modal
-						setSignInModalVisible(true);			
+						setSignInModalVisible(true);
 					}
 					if (e.currentKey === "Log in") {
-						// Show log in modal						
-						setLogInModalVisible(true);						
+						// Show log in modal
+						setLogInModalVisible(true);
+						setLoggedIn(true);
 					}
 					if (e.currentKey === "Log out") {
 						setOpenLogOutAlertDialog(true);
+						setLoggedIn(false);
 					}
 				}}
 				trigger={({ ...triggerProps }) => {
@@ -88,35 +92,38 @@ const UserProfile = () => {
 					);
 				}}
 			>
-				{true
-					? userMenuLoggedOutItems.map((item) => (
+				{loggedIn
+					? userMenuLoggedInItems.map((item) => (
 							<MenuItem key={item.title} textValue={item.title}>
 								<MenuItemLabel>{item.title}</MenuItemLabel>
 							</MenuItem>
 					  ))
-					: userMenuLoggedInItems.map((item) => (
+					: userMenuLoggedOutItems.map((item) => (
 							<MenuItem key={item.title} textValue={item.title}>
 								<MenuItemLabel>{item.title}</MenuItemLabel>
 							</MenuItem>
 					  ))}
 			</Menu>
+
 			{logInModalVisible && (
-				// list your property modal				
+				// Show log in modal
 				<LogInModal
 					modalVisible={logInModalVisible}
 					setModalVisible={setLogInModalVisible}					
 				/>
 			)}
+
 			{signInModalVisible && (
-				// list your property modal
+				// Show sign in modal
 				<SignInModal
-					signInModalVisible={signInModalVisible}
-					setSignInModalVisible={setSignInModalVisible}			
+					modalVisible={signInModalVisible}
+					setModalVisible={setSignInModalVisible}
 				/>
 			)}
+
 			<LogOutAlertDialog
-				openLogoutAlertDialog={openLogOutAlertDialog}
-				setOpenLogoutAlertDialog={setOpenLogOutAlertDialog}
+				openLogOutAlertDialog={openLogOutAlertDialog}
+				setOpenLogOutAlertDialog={setOpenLogOutAlertDialog}
 			/>
 		</>
 	);
