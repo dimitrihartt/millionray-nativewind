@@ -14,6 +14,8 @@ import {
 	AlertDialogBody,
 	AlertDialogFooter,
 } from "@/components/ui";
+import { supabase } from "@/utils/supabase";
+import { useSupabaseStore } from "@/store/supabaseStore";
 
 const LogOutAlertDialog = ({
 	openLogOutAlertDialog,
@@ -21,7 +23,7 @@ const LogOutAlertDialog = ({
 }: any) => {
 	const handleClose = () => {
 		setOpenLogOutAlertDialog(false);
-	};
+	};	
 
 	return (
 		<AlertDialog isOpen={openLogOutAlertDialog} onClose={handleClose}>
@@ -40,7 +42,20 @@ const LogOutAlertDialog = ({
 					<Button variant="outline" action="secondary" onPress={handleClose}>
 						<ButtonText>Cancel</ButtonText>
 					</Button>
-					<Button action="negative" onPress={handleClose}>
+					<Button
+						action="negative"
+						onPress={async () => {
+							const { error } = await supabase.auth.signOut();
+							if (!error) {
+								handleClose;
+								useSupabaseStore((state: { logout: any; }) => state.logout)
+								alert("Signed out!");
+							}
+							if (error) {
+								alert(error.message);
+							}
+						}}
+					>
 						<ButtonText className="text-white">Logout</ButtonText>
 					</Button>
 				</AlertDialogFooter>

@@ -1,69 +1,40 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
 	Box,
-	VStack,
-	Icon,
-	Center,
-	Spinner,
-	HStack,
-	Input,
 	Button,
-	Heading,
-	Radio,
-	Checkbox,
-	Textarea,
-	ChevronDownIcon,
+	ButtonText,
 	CheckCircleIcon,
 	CloseIcon,
-	CheckIcon,
-	CircleIcon,
-	InputField,
-	TextareaInput,
-	CheckboxGroup,
-	CheckboxIndicator,
-	CheckboxLabel,
-	CheckboxIcon,
-	ButtonText,
-	RadioIndicator,
-	RadioLabel,
-	RadioIcon,
-	RadioGroup,
 	FormControl,
-	FormControlLabelText,
 	FormControlLabel,
+	FormControlLabelText,
+	Heading,
+	HStack,
+	Icon,
+	Input,
+	InputField,
 	Modal,
+	ModalBackdrop,
 	ModalBody,
 	ModalCloseButton,
-	ModalHeader,
-	ModalBackdrop,
 	ModalContent,
-	useToast,
+	ModalHeader,
 	Toast,
 	ToastDescription,
 	ToastTitle,
-	Select,
-	SelectTrigger,
-	SelectDragIndicatorWrapper,
-	SelectDragIndicator,
-	SelectBackdrop,
-	SelectIcon,
-	SelectInput,
-	SelectContent,
-	SelectPortal,
-	SelectItem,
+	useToast,
+	VStack,
 } from "@/components/ui";
 import { ThemeContext } from "../App";
-
-const handleClose = (setModalVisible: any) => {
-	setModalVisible(false);
-};
+import { supabase } from "@/utils/supabase";
+import { useSupabaseStore } from "@/store/supabaseStore";
 
 const LogInModal = ({ modalVisible, setModalVisible }: any) => {
 	const { colorMode } = useContext(ThemeContext);
-	const toast = useToast();			
+	const toast = useToast();
 	console.log("LogInModal");
-	return (		
-		<Box>			
+	return (
+		<Box>
 			{/* Modal: example */}
 			<Modal
 				size="md"
@@ -90,18 +61,22 @@ const LogInModal = ({ modalVisible, setModalVisible }: any) => {
 						</ModalCloseButton>
 					</ModalHeader>
 					<ModalBody className="mb-0">
-					<VStack space="md">
-						<ModalContentLogIn
-							modalVisible={modalVisible}
-							setModalVisible={setModalVisible}							
-							toast={toast}
-						/>
+						<VStack space="md">
+							<ModalContentLogIn
+								modalVisible={modalVisible}
+								setModalVisible={setModalVisible}
+								toast={toast}
+							/>
 						</VStack>
 					</ModalBody>
 				</ModalContent>
 			</Modal>
 		</Box>
 	);
+};
+
+const handleClose = (setModalVisible: any) => {
+	setModalVisible(false);
 };
 
 const RenderToastContent = ({ description, title, id }: any) => {
@@ -116,42 +91,74 @@ const RenderToastContent = ({ description, title, id }: any) => {
 	);
 };
 
-const LoginButton = ({ setModalVisible, toast }: any) => {
+const LoginButton = ({ setModalVisible, toast, email, password }: any) => {
+	const [loading, setLoading] = useState<boolean>(false);
+
+	async function login() {
+		setLoading(true);
+		const {
+			data: { user },
+			error,
+		} = await supabase.auth.signInWithPassword({
+			email: email,
+			password: password,
+		});
+		if (!error && user) {
+			setLoading(false);						
+			const loggedIn = useSupabaseStore((state: { login: any; }) => state.login)
+			alert(loggedIn);
+			handleClose(setModalVisible);			
+			toast.show({
+				placement: "top",
+				render: ({ id }: any) => {
+					return (
+						<RenderToastContent
+							description="You have successfully logged in."
+							title="Congratulations!"
+							nativeId={id}
+						/>
+					);
+				},
+			});
+		}
+		if (error) {
+			setLoading(false);
+			alert(error.message);
+		}
+	}
+
 	return (
 		<Button
 			onPress={() => {
-				handleClose(setModalVisible);
-				toast.show({
-					placement: "top",
-					render: ({ id }: any) => {
-						return (
-							<RenderToastContent
-								description="You have successfully logged in."
-								title="Congratulations!"
-								nativeId={id}
-							/>
-						);
-					},
-				});
-
+				login();
 			}}
 		>
 			<ButtonText className="text-typography-0 group-hover/button:text-typography-0">
-				Login Now
+				{loading ? "Loading..." : "Login now"}
 			</ButtonText>
 		</Button>
 	);
 };
 
 const ModalContentLogIn = ({ setModalVisible, toast }: any) => {
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 	return (
 		<VStack space="md">
 			<FormControl>
 				<FormControlLabel>
-					<FormControlLabelText>Username/Email</FormControlLabelText>
+					<FormControlLabelText>Username/Email/Phone</FormControlLabelText>
 				</FormControlLabel>
 				<Input className="w-full">
-					<InputField placeholder="Enter username/email/phone" />
+					<InputField
+						placeholder="Enter username/email/phone"
+						value={email}
+						autoCapitalize="none"
+						autoComplete="off"
+						autoCorrect={false}
+						keyboardType="email-address"
+						onChangeText={(text) => setEmail(text)}
+					/>
 				</Input>
 			</FormControl>
 
@@ -160,13 +167,26 @@ const ModalContentLogIn = ({ setModalVisible, toast }: any) => {
 					<FormControlLabelText>Password</FormControlLabelText>
 				</FormControlLabel>
 				<Input className="w-full">
-					<InputField placeholder="Enter your password" />
+					<InputField
+						placeholder="Enter your password"
+						value={password}
+						autoCapitalize="none"
+						autoComplete="off"
+						autoCorrect={false}
+						secureTextEntry={true}
+						onChangeText={(text) => setPassword(text)}
+					/>
 				</Input>
 			</FormControl>
 
 			<VStack space="sm">
 				<VStack space="sm">
-					<LoginButton setModalVisible={setModalVisible} toast={toast} />					
+					<LoginButton
+						setModalVisible={setModalVisible}
+						toast={toast}
+						email={email}
+						password={password}
+					/>
 				</VStack>
 			</VStack>
 		</VStack>

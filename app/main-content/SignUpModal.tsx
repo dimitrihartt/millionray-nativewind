@@ -52,6 +52,7 @@ import {
 	VStack,
 } from "@/components/ui";
 import { ThemeContext } from "../App";
+import { supabase } from "@/utils/supabase";
 
 const buySellOrRentOptions = ["Buy", "Sell", "Rent/Lease"];
 
@@ -97,7 +98,6 @@ const phoneNumberCodes = [
 	{ code: "+1", country: "USA" },
 	{ code: "+55", country: "Brazil" },
 ];
-
 
 const SignUpModal = ({ modalVisible, setModalVisible }: any) => {
 	const { colorMode } = useContext(ThemeContext);
@@ -186,7 +186,6 @@ const SignUpModal = ({ modalVisible, setModalVisible }: any) => {
 		</Box>
 	);
 };
-
 
 const AgentSection = () => {
 	const { colorMode } = useContext(ThemeContext);
@@ -587,11 +586,9 @@ const ReasonSection = () => {
 	);
 };
 
-
 const handleClose = (setModalVisible: any) => {
 	setModalVisible(false);
 };
-
 
 const PreviousStepperButton = ({ setModalFormStep, step }: any) => {
 	return (
@@ -669,7 +666,6 @@ const SaveForLaterButton = ({ setModalVisible, toast }: any) => {
 	);
 };
 
-
 const RenderToastContent = ({ description, title, id }: any) => {
 	return (
 		<Toast action="success" id={id} className="top-[150px] flex flex-row">
@@ -682,28 +678,49 @@ const RenderToastContent = ({ description, title, id }: any) => {
 	);
 };
 
+const SendButton = ({ setModalVisible, toast, email, password }: any) => {
+	const [loading, setLoading] = useState<boolean>(false);
 
-const SendButton = ({ setModalVisible, toast }: any) => {
+	async function register() {
+		setLoading(true);
+
+		const {
+			data: { user, session },
+			error,
+		} = await supabase.auth.signUp({
+			email: email,
+			password: password,
+		});
+
+		if (!error && user ) {
+			setLoading(false);
+			handleClose(setModalVisible);
+			toast.show({
+				placement: "top",
+				render: ({ id }: any) => {
+					return (
+						<RenderToastContent
+							description="Check your email for the login link!"
+							title="Congratulations!"
+							nativeId={id}
+						/>
+					);
+				},
+			});
+		}
+		if (error) {
+			setLoading(false);
+			alert(error.message);
+		}
+	}
 	return (
 		<Button
 			onPress={() => {
-				handleClose(setModalVisible);
-				toast.show({
-					placement: "top",
-					render: ({ id }: any) => {
-						return (
-							<RenderToastContent
-								description="You've been registered."
-								title="Congratulations!"
-								nativeId={id}
-							/>
-						);
-					},
-				});
+				register();
 			}}
 		>
 			<ButtonText className="text-typography-0 group-hover/button:text-typography-0">
-				Send Now
+				{loading ? "Loading..." : "Send Button"}
 			</ButtonText>
 		</Button>
 	);
@@ -757,11 +774,52 @@ const ModalContentPersonalInfo = ({ setModalFormStep }: any) => {
 };
 
 const ModalContentEmailInfo = ({ setModalVisible, toast }: any) => {
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 	return (
 		<VStack space="md">
-			<EmailPasswordSection />
+			<VStack space="sm">
+				<FormControl>
+					<FormControlLabel>
+						<FormControlLabelText>E-mail</FormControlLabelText>
+					</FormControlLabel>
+					<Input className="w-full">
+						<InputField
+							placeholder="Enter your e-mail"
+							value={email}
+							autoCapitalize="none"
+							autoComplete="off"
+							autoCorrect={false}
+							keyboardType="email-address"
+							onChangeText={setEmail}
+						/>
+					</Input>
+				</FormControl>
+				<FormControl>
+					<FormControlLabel>
+						<FormControlLabelText>Password</FormControlLabelText>
+					</FormControlLabel>
+					<Input className="w-full">
+						<InputField
+							type="password"
+							placeholder="Enter your password"
+							value={password}
+							autoCapitalize="none"
+							autoComplete="off"
+							autoCorrect={false}
+							secureTextEntry
+							onChangeText={setPassword}
+						/>
+					</Input>
+				</FormControl>
+			</VStack>
 			<VStack space="sm" className="w-full">
-				<SendButton setModalVisible={setModalVisible} toast={toast} />
+				<SendButton
+					setModalVisible={setModalVisible}
+					toast={toast}
+					email={email}
+					password={password}
+				/>
 			</VStack>
 		</VStack>
 	);
