@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
 	Avatar,
 	AvatarFallbackText,
@@ -13,6 +13,8 @@ import {
 import SignUpModal from "../main-content/SignUpModal";
 import LogInModal from "../main-content/LogInModal";
 import LogOutAlertDialog from "../LogOutAlertDialog";
+import { AuthContext } from "@/provider/AuthProvider";
+import { useSupabaseStore } from "@/store/supabaseStore";
 
 const userMenuLoggedInItems = [
 	{
@@ -47,8 +49,8 @@ const userMenuLoggedOutItems = [
 	},
 ];
 
-const UserProfile = () => {
-	const [loggedIn, setLoggedIn] = useState(false); // Change this to true or false based on your authentication logic
+const UserProfile = () => {	
+	const loggedIn = useSupabaseStore((state) => state.loggedIn)
 
 	const [openLogOutAlertDialog, setOpenLogOutAlertDialog] = useState(false);
 	const [logInModalVisible, setLogInModalVisible] = React.useState(false);
@@ -68,12 +70,10 @@ const UserProfile = () => {
 					}
 					if (e.currentKey === "Log in") {
 						// Show log in modal
-						setLogInModalVisible(true);
-						setLoggedIn(true);
+						setLogInModalVisible(true);						
 					}
 					if (e.currentKey === "Log out") {
-						setOpenLogOutAlertDialog(true);
-						setLoggedIn(false);
+						setOpenLogOutAlertDialog(true);				
 					}
 				}}
 				trigger={({ ...triggerProps }) => {
